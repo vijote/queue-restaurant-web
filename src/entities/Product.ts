@@ -1,6 +1,4 @@
-import type { Path } from "../types/types"
-import type Customer from "./Customer";
-import MovePointsGrid from "./MovePointsGrid";
+import type { Path } from "../types/types";
 
 class Product {
     private path: Path
@@ -29,14 +27,8 @@ class Product {
         return foundIndex
     }
 
-    public addCustomerToPathPoints(customer: Customer) {
-        this.path.forEach(point => {
-            MovePointsGrid.addCustomerToPointQueue(point, customer)
-        })
-    }
-
     static Tomato() {
-        return new Product([
+        return [
             'A1',
             'A2',
             'B2',
@@ -47,7 +39,7 @@ class Product {
             'E2',
             'E3',
             'E4'
-        ])
+        ];
     }
 }
 

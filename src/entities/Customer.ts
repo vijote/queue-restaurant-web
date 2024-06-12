@@ -1,56 +1,53 @@
-import type Product from "./Product";
 import MovePointsGrid from "./MovePointsGrid";
 
 class Customer {
     public x: number = MovePointsGrid.spawnPoint.x;
     public y: number = MovePointsGrid.spawnPoint.y;
-    public target: Product
-    private currentStepIndex: number = 0;
+    public color: string = this.generateColor();
+
+    private onPathCompleted: (customer: Customer) => void;
+    private path: string[]
     private currentStepId: string;
 
-    private constructor(target: Product) {
-        this.target = target;
-        this.currentStepId = target.getStepId(0);
-        this.requestPointsFromPathToAddItselfToQueue();
+    private generateColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    private constructor(path: string[], onPathCompleted: (customer: Customer) => void) {
+        this.onPathCompleted = onPathCompleted;
+        this.path = path;
+        const firstStepId = path.at(0);
+
+        if (firstStepId === undefined) throw new Error('array is empty!')
+        this.currentStepId = firstStepId;
     }
 
     public getCurrentStep() {
         return MovePointsGrid.getPointPosition(this.currentStepId)
     }
 
-    public static new(target: Product) {
-        return new Customer(target)
+    public static new(path: string[], onPathCompleted: (customer: Customer) => void) {
+        return new Customer(path, onPathCompleted)
     }
 
-    public goToStep(id: string) {
-        const foundIndex = this.target.getStepIndex(id);
-        const pointPosition = MovePointsGrid.getPointPosition(id)
+    public requestNextStep() {
+        const nextStepId = this.path.shift()
 
-        this.x = pointPosition.x;
-        this.y = pointPosition.y;
+        if (nextStepId === undefined) {
+            this.onPathCompleted(this);
+            return;
+        }
+
+        MovePointsGrid.placeCustomerInQueue(nextStepId, this);
+    }
+
+    public advanceToStep(id: string) {
         this.currentStepId = id;
-        this.currentStepIndex = foundIndex;
-    }
-
-    public goToNextStep() {
-        if (this.currentStepIndex === this.target.getPathLength() - 1) return;
-
-        const nextStepIndex = this.currentStepIndex + 1;
-        const nextStepId = this.target.getStepId(nextStepIndex);
-        
-        if (!MovePointsGrid.isPointFree(nextStepId)) return;
-
-        // const upcomingStepIndex = this.currentStepIndex + 2;
-        // const upcomingStepId = this.target.getStepId(upcomingStepIndex);
-
-        MovePointsGrid.departCustomerFromPoint(this.currentStepId);
-        MovePointsGrid.receiveCustomerOnPoint(nextStepId, this);
-        this.currentStepIndex = nextStepIndex;
-        this.currentStepId = nextStepId;
-    }
-
-    private requestPointsFromPathToAddItselfToQueue() {
-        this.target.addCustomerToPathPoints(this)
     }
 }
 

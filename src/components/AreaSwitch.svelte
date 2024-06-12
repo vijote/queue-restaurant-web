@@ -1,12 +1,11 @@
 <script lang="ts">
-    import Customer from "../entities/Customer";
-    import Product from "../entities/Product";
-    import { addCustomer } from "../stores/customers.store";
+    import MovePointsGrid from "../entities/MovePointsGrid";
+    import { addCustomer, removeCustomer } from "../stores/customers.store";
     import { addCustomerUI } from "../stores/customersUI.store";
     import { goToCheckout, goToShopping } from "../stores/selectedArea.store";
 
     function spawnCustomer() {
-        const newCustomer = Customer.new(Product.Tomato());
+        const newCustomer = MovePointsGrid.spawnCustomer(removeCustomer);
         addCustomer(newCustomer);
         addCustomerUI(newCustomer);
     }

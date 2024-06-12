@@ -7,15 +7,14 @@ export function addCustomer(newCustomer: Customer) {
     customers.update((customers) => [...customers, newCustomer])
 }
 
-export function updateCustomer(id: number, x: number, y: number) {
+export function removeCustomer(customer: Customer) {    
     customers.update((customers) => {
-        const index = customers.findIndex(c => c.id === id);
-        
-        customers[index].x = x;
-        customers[index].y = y;
+        const index = customers.findIndex(cust => cust === customer)
 
-        return customers;
-    });
+        if(index === -1) throw new Error('customer not found!')
+
+        return [...customers.slice(0, index), ...customers.slice(index + 1)]
+    })
 }
 
 

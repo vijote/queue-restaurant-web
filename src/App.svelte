@@ -12,11 +12,7 @@
   });
 
   const updateCustomers = () => {
-    console.log("new render!");
-
-    // currentCustomers.forEach((customer) => {
-    //   customer.goToNextStep();
-    // });
+    console.log('tick!');
 
     MovePointsGrid.getPointsList().forEach(point => {
       point.receiveNextCustomer()

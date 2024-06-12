@@ -16,7 +16,7 @@
 
         <div class="floating-layer" style="z-index: 2;">
             {#each $customers as customer}
-                <div class="customer" style={`top: ${customer.getCurrentStep().y}%; left: ${customer.getCurrentStep().x}%`} />
+                <div class="customer" style={`top: ${customer.getCurrentStep().y}%; left: ${customer.getCurrentStep().x}%; background-color:${customer.color};`} />
             {/each}
         </div>
     </div>
@@ -34,7 +34,6 @@
     .customer {
         position: absolute;
         transform: translateY(-50%) translateX(-50%);
-        background-color: rgb(37, 239, 162);
         height: 10%;
         width: 7.5%;
     }

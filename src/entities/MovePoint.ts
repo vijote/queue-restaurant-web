@@ -6,7 +6,6 @@ class MovePoint {
     private _y: number;
     private _isShelf: boolean;
     private currentCustomer: Customer | null = null;
-    private upcomingCustomer: Customer | null = null;
     private customerQueue: Customer[] = []
 
     get x() {
@@ -29,20 +28,22 @@ class MovePoint {
     }
 
     public receiveNextCustomer() {
+        if(this.currentCustomer) this.currentCustomer.requestNextStep();
+
+        if(this.customerQueue.length === 0) this.currentCustomer = null;
+        
+        // Find the next
         const customer = this.customerQueue.shift()
 
         if(!customer) return
 
+        // Receive it
         this.currentCustomer = customer;
-        customer.goToStep(this.id)
+        customer.advanceToStep(this.id);
     }
 
     public departCustomer() {
         this.currentCustomer = null;
-    }
-
-    public setUpcomingCustomer(newCustomer: Customer | null) {
-        this.upcomingCustomer = newCustomer;
     }
 
     private constructor(id: string, x: number, y: number, isShelf?: boolean) {
@@ -61,6 +62,9 @@ class MovePoint {
     }
 
     public addCustomerToQueue(customer: Customer) {
+        // Don't add a customer that's already in
+        if(this.customerQueue.includes(customer)) return;
+
         this.customerQueue.push(customer);
     }
 }

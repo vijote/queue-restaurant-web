@@ -1,5 +1,6 @@
 import MovePoint from "../entities/MovePoint";
-import type Customer from "./Customer";
+import Customer from "./Customer";
+import Product from "./Product";
 
 // Height
 const POS_Y_A = 7;
@@ -69,12 +70,20 @@ class MovePointsGrid {
         MovePointsGrid.getPoint(id).receiveCustomer(customer)
     }
 
-    public static requestToBeNext(id: string, customer: Customer) {
-        MovePointsGrid.getPoint(id).setUpcomingCustomer(customer)
+    public static placeCustomerInQueue(id: string, customer: Customer) {
+        MovePointsGrid.getPoint(id).addCustomerToQueue(customer)
     }
 
     public static addCustomerToPointQueue(id: string, customer: Customer) {
         MovePointsGrid.getPoint(id).addCustomerToQueue(customer)
+    }
+
+    public static spawnCustomer(onPathCompleted: (customer: Customer) => void) {
+        const newCustomer = Customer.new(Product.Tomato(), onPathCompleted);
+
+        this.placeCustomerInQueue('A1', newCustomer);
+
+        return newCustomer;
     }
 }
 
