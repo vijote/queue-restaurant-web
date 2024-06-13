@@ -1,6 +1,6 @@
 <script lang="ts">
     import selectedArea from "../stores/selectedArea.store";
-    import { Areas } from "../types/types";
+    import { Areas } from "../lib/types";
     import AreaSwitch from "./AreaSwitch.svelte";
     import CheckoutArea from "./CheckoutArea.svelte";
     import CustomersLayer from "./CustomersLayer.svelte";

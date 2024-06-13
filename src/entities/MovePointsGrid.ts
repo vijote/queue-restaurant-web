@@ -53,28 +53,12 @@ class MovePointsGrid {
         return Array.from(MovePointsGrid.map.values())
     }
 
-    public static isPointFree(id: string) {
-        return MovePointsGrid.getPoint(id).isFree()
-    }
-
     public static getPointPosition(id: string) {
         const point = MovePointsGrid.getPoint(id)
         return { x: point.x, y: point.y }
     }
 
-    public static departCustomerFromPoint(id: string) {
-        MovePointsGrid.getPoint(id).departCustomer()
-    }
-
-    public static receiveCustomerOnPoint(id: string, customer: Customer) {
-        MovePointsGrid.getPoint(id).receiveCustomer(customer)
-    }
-
     public static placeCustomerInQueue(id: string, customer: Customer) {
-        MovePointsGrid.getPoint(id).addCustomerToQueue(customer)
-    }
-
-    public static addCustomerToPointQueue(id: string, customer: Customer) {
         MovePointsGrid.getPoint(id).addCustomerToQueue(customer)
     }
 

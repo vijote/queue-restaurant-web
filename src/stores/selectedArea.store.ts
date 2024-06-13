@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { Areas } from "../types/types";
+import { Areas } from "../lib/types";
 
 const selectedArea = writable(Areas.Shopping);
 

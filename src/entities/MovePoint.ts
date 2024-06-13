@@ -20,13 +20,6 @@ class MovePoint {
         return this._isShelf;
     }
 
-    public receiveCustomer(newCustomer: Customer) {
-        if (this.currentCustomer !== null) return false;
-
-        this.currentCustomer = newCustomer;
-        return true;
-    }
-
     public receiveNextCustomer() {
         if(this.currentCustomer) this.currentCustomer.requestNextStep();
 
@@ -42,10 +35,6 @@ class MovePoint {
         customer.advanceToStep(this.id);
     }
 
-    public departCustomer() {
-        this.currentCustomer = null;
-    }
-
     private constructor(id: string, x: number, y: number, isShelf?: boolean) {
         this.id = id;
         this._x = x;
@@ -55,10 +44,6 @@ class MovePoint {
 
     public static new(id: string, x: number, y: number, isShelf?: boolean) {
         return new MovePoint(id, x, y, isShelf);
-    }
-
-    public isFree() {
-        return this.currentCustomer === null;
     }
 
     public addCustomerToQueue(customer: Customer) {

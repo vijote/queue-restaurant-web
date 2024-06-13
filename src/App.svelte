@@ -1,7 +1,7 @@
 <script lang="ts">
   import Layout from "./components/Layout.svelte";
   import type Customer from "./entities/Customer";
-    import MovePointsGrid from "./entities/MovePointsGrid";
+  import MovePointsGrid from "./entities/MovePointsGrid";
   import { onInterval } from "./lib/onInterval";
   import customers from "./stores/customers.store";
   import { updateCustomersUI } from "./stores/customersUI.store";
@@ -12,14 +12,14 @@
   });
 
   const moveCustomers = () => {
-    console.log('tick!');
+    console.log("tick!");
 
-    MovePointsGrid.getPointsList().forEach(point => {
-      point.receiveNextCustomer()
-    })
+    MovePointsGrid.getPointsList().forEach((point) => {
+      point.receiveNextCustomer();
+    });
 
     updateCustomersUI(currentCustomers);
-  }
+  };
 
   onInterval(moveCustomers, 1000);
 </script>

@@ -3,5 +3,3 @@ export enum Areas {
     Checkout = 2,
     Exterior = 3
 }
-
-export type Path = string[]
