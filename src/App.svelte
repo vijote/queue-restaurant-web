@@ -11,7 +11,7 @@
     currentCustomers = value;
   });
 
-  const updateCustomers = () => {
+  const moveCustomers = () => {
     console.log('tick!');
 
     MovePointsGrid.getPointsList().forEach(point => {
@@ -21,7 +21,7 @@
     updateCustomersUI(currentCustomers);
   }
 
-  onInterval(updateCustomers, 1000);
+  onInterval(moveCustomers, 1000);
 </script>
 
 <Layout />

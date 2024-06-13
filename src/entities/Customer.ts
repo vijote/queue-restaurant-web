@@ -1,13 +1,13 @@
 import MovePointsGrid from "./MovePointsGrid";
 
 class Customer {
-    public x: number = MovePointsGrid.spawnPoint.x;
-    public y: number = MovePointsGrid.spawnPoint.y;
+    public x: number | undefined;
+    public y: number | undefined;
     public color: string = this.generateColor();
 
     private onPathCompleted: (customer: Customer) => void;
     private path: string[]
-    private currentStepId: string;
+    private currentStepId: string | undefined;
 
     private generateColor() {
         const letters = '0123456789ABCDEF';
@@ -21,13 +21,11 @@ class Customer {
     private constructor(path: string[], onPathCompleted: (customer: Customer) => void) {
         this.onPathCompleted = onPathCompleted;
         this.path = path;
-        const firstStepId = path.at(0);
-
-        if (firstStepId === undefined) throw new Error('array is empty!')
-        this.currentStepId = firstStepId;
     }
 
     public getCurrentStep() {
+        if(!this.currentStepId) return undefined;
+        
         return MovePointsGrid.getPointPosition(this.currentStepId)
     }
 
