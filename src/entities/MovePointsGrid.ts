@@ -75,6 +75,14 @@ class MovePointsGrid {
 
         point.departCustomer(customer);
     }
+
+    public static isPointAShelf(id: string) {
+        return this.getPoint(id).isShelf;
+    }
+
+    public static isPointOccupied(id: string) {
+        return this.getPoint(id).isOcuppied();
+    }
 }
 
 export default MovePointsGrid;

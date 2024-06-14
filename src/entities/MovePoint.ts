@@ -34,9 +34,7 @@ class MovePoint {
     public receiveNextCustomer() {
         // If there's already a customer
         // make it go away
-        if (this.currentCustomer) {
-            console.log(this.id, 'has a customer!');
-            
+        if (this.currentCustomer) {            
             this.currentCustomer.requestNextStep();
             return;
         }
@@ -63,6 +61,10 @@ class MovePoint {
         if(customer !== this.currentCustomer) throw new Error('customer is invalid!');
         
         this.currentCustomer = null;
+    }
+
+    public isOcuppied() {
+        return this.currentCustomer !== null;
     }
 }
 

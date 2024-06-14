@@ -33,16 +33,22 @@ class Customer {
     }
 
     public requestNextStep() {
-        console.log('stepRequestInProgress', this.stepRequestInProgress);
-
+        // Wait until the current request finishes
         if (this.stepRequestInProgress) return;
+
+        // Check if the following step is a shelf and is occupied
+        // (not the next, but one more)
+        const upcomingStepId = this.path.at(1);
+        if (upcomingStepId
+            && MovePointsGrid.isPointAShelf(upcomingStepId)
+            && MovePointsGrid.isPointOccupied(upcomingStepId)) {
+            return;
+        }
 
         const nextStepId = this.path.shift();
 
         // If there's a next step to go
         if (nextStepId) {
-            console.log('Customer requesting step:', nextStepId);
-
             MovePointsGrid.placeCustomerInQueue(nextStepId, this);
             this.stepRequestInProgress = nextStepId;
             return;
