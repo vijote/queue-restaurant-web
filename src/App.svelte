@@ -12,8 +12,6 @@
   });
 
   const moveCustomers = () => {
-    console.log("tick!");
-
     MovePointsGrid.getPointsList().forEach((point) => {
       point.receiveNextCustomer();
     });

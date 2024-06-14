@@ -20,21 +20,6 @@ class MovePoint {
         return this._isShelf;
     }
 
-    public receiveNextCustomer() {
-        if(this.currentCustomer) this.currentCustomer.requestNextStep();
-
-        if(this.customerQueue.length === 0) this.currentCustomer = null;
-        
-        // Find the next
-        const customer = this.customerQueue.shift()
-
-        if(!customer) return
-
-        // Receive it
-        this.currentCustomer = customer;
-        customer.advanceToStep(this.id);
-    }
-
     private constructor(id: string, x: number, y: number, isShelf?: boolean) {
         this.id = id;
         this._x = x;
@@ -46,11 +31,38 @@ class MovePoint {
         return new MovePoint(id, x, y, isShelf);
     }
 
+    public receiveNextCustomer() {
+        // If there's already a customer
+        // make it go away
+        if (this.currentCustomer) {
+            console.log(this.id, 'has a customer!');
+            
+            this.currentCustomer.requestNextStep();
+            return;
+        }
+
+        // Find the next
+        const customer = this.customerQueue.shift();
+
+        if (!customer) return;
+
+        // Receive it
+        this.currentCustomer = customer;
+        customer.fulfillStepRequest();
+        // customer.advanceToStep(this.id);
+    }
+
     public addCustomerToQueue(customer: Customer) {
         // Don't add a customer that's already in
-        if(this.customerQueue.includes(customer)) return;
+        if (this.customerQueue.includes(customer)) return;
 
         this.customerQueue.push(customer);
+    }
+
+    public departCustomer(customer: Customer) {
+        if(customer !== this.currentCustomer) throw new Error('customer is invalid!');
+        
+        this.currentCustomer = null;
     }
 }
 

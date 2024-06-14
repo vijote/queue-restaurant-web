@@ -1,13 +1,12 @@
 import MovePointsGrid from "./MovePointsGrid";
 
 class Customer {
-    public x: number | undefined;
-    public y: number | undefined;
     public color: string = this.generateColor();
 
     private onPathCompleted: (customer: Customer) => void;
-    private path: string[]
-    private currentStepId: string | undefined;
+    private path: string[];
+    private currentStepId: string | null = null;
+    private stepRequestInProgress: string | null = null;
 
     private generateColor() {
         const letters = '0123456789ABCDEF';
@@ -23,25 +22,42 @@ class Customer {
         this.path = path;
     }
 
+    public static new(path: string[], onPathCompleted: (customer: Customer) => void) {
+        return new Customer(path, onPathCompleted);
+    }
+
     public getCurrentStep() {
-        if(!this.currentStepId) return undefined;
-        
+        if (!this.currentStepId) return undefined;
+
         return MovePointsGrid.getPointPosition(this.currentStepId)
     }
 
-    public static new(path: string[], onPathCompleted: (customer: Customer) => void) {
-        return new Customer(path, onPathCompleted)
-    }
-
     public requestNextStep() {
-        const nextStepId = this.path.shift()
+        console.log('stepRequestInProgress', this.stepRequestInProgress);
 
-        if (nextStepId === undefined) {
-            this.onPathCompleted(this);
+        if (this.stepRequestInProgress) return;
+
+        const nextStepId = this.path.shift();
+
+        // If there's a next step to go
+        if (nextStepId) {
+            console.log('Customer requesting step:', nextStepId);
+
+            MovePointsGrid.placeCustomerInQueue(nextStepId, this);
+            this.stepRequestInProgress = nextStepId;
             return;
         }
 
-        MovePointsGrid.placeCustomerInQueue(nextStepId, this);
+        // If all the steps are done
+        this.onPathCompleted(this);
+        if (this.currentStepId) MovePointsGrid.departCustomerFromPoint(this.currentStepId, this)
+    }
+
+    public fulfillStepRequest() {
+        if (this.currentStepId) MovePointsGrid.departCustomerFromPoint(this.currentStepId, this);
+
+        this.currentStepId = this.stepRequestInProgress;
+        this.stepRequestInProgress = null;
     }
 
     public advanceToStep(id: string) {

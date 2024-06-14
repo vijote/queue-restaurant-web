@@ -17,7 +17,7 @@
         <div class="floating-layer" style="z-index: 2;">
             {#each $customers as customer}
                 {@const currentStep = customer.getCurrentStep()}
-                {#if currentStep !== undefined}
+                {#if currentStep}
                     <div
                         class="customer"
                         style:top={`${currentStep.y}%`}

@@ -1,4 +1,4 @@
-class Product {
+class Path {
     static Tomato() {
         return [
             'A1',
@@ -15,4 +15,4 @@ class Product {
     }
 }
 
-export default Product
+export default Path
