@@ -1,18 +1,18 @@
 <section class="shopping-area-container">
     <div class="shelf">
-        <article class="product"/>
-        <article class="product"/>
-        <article class="product"/>
+        <article class="product" style:background-color="#FF6347"/>
+        <article class="product" style:background-color="#4CAF50"/>
+        <article class="product" style:background-color="#FFA500"/>
     </div>
     <div class="shelf">
-        <article class="product"/>
-        <article class="product"/>
-        <article class="product"/>
+        <article class="product" style:background-color="#4B0082"/>
+        <article class="product" style:background-color="#FFD700"/>
+        <article class="product" style:background-color="#800080"/>
     </div>
-    <div class="shelf">
+    <div class="shelf" style:background-color="transparent">
+        <!-- <article class="product"/>
         <article class="product"/>
-        <article class="product"/>
-        <article class="product"/>
+        <article class="product"/> -->
     </div>
 
     <!-- Slot for the customers layer -->

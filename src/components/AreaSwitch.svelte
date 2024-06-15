@@ -11,7 +11,7 @@
 
 <section class="area-buttons-container">
     <button class="area-button" on:click={goToShopping}>Shopping</button>
-    <button class="area-button" on:click={goToCheckout}>Checkout</button>
+    <!-- <button class="area-button" on:click={goToCheckout}>Checkout</button> -->
     <button on:click={spawnCustomer}>Spawn customer</button>
 </section>
 

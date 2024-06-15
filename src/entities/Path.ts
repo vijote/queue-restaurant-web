@@ -76,13 +76,10 @@ class Path {
 
     public static RandomPath() {
         const index = Math.floor(Math.random() * Path.paths.length);
-        console.log('random index:',index);
-        
+
         const path = Path.paths.at(index);
 
         if (!path) throw new Error('random path is invalid!');
-        console.log('path:', path);
-        
 
         return path;
     }
