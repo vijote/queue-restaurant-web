@@ -63,7 +63,7 @@ class MovePointsGrid {
     }
 
     public static spawnCustomer(onPathCompleted: (customer: Customer) => void) {
-        const newCustomer = Customer.new(Path.Tomato(), onPathCompleted);
+        const newCustomer = Customer.new(Path.RandomPath(), onPathCompleted);
 
         newCustomer.requestNextStep();
 

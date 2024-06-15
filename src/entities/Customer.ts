@@ -19,7 +19,7 @@ class Customer {
 
     private constructor(path: string[], onPathCompleted: (customer: Customer) => void) {
         this.onPathCompleted = onPathCompleted;
-        this.path = path;
+        this.path = Array.from(path);
     }
 
     public static new(path: string[], onPathCompleted: (customer: Customer) => void) {
